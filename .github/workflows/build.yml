@@ -1,0 +1,28 @@
+name: Build and Publish
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Getting Node JS
+        id: get_nodejs
+        run: |
+          curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.5/install.sh | bash
+          nvm install node
+
+      - name: Build and Publish Image
+        env:
+          GHCR_USERNAME: ${{ github.actor }}
+          GHCR_REPOSITORY: ${{ steps.set_repo_name.outputs.repo_name }}
+          GHCR_TAG: latest
+        run: |
+          docker buildx build --platform linux/amd64 --push -t ghcr.io/${GHCR_REPOSITORY}:${GHCR_TAG} .
