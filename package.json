@@ -1,6 +1,6 @@
 {
   "name": "thinkercad-dekstop",
-  "productName": "ThinkerCAD Desktop",
+  "productName": "ThinkerCAD",
   "version": "1.0.0",
   "description": "Thinkercad web wrapped for desktop",
   "main": "src/index.js",
